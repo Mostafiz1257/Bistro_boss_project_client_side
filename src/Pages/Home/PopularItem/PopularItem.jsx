@@ -4,7 +4,6 @@ import useMenu from "../../../hooks/useMenu";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
 
 
-
 const PopularItem = () => {
     const [menu] = useMenu();
     console.log(menu);
