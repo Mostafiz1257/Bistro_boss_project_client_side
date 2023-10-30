@@ -1,13 +1,38 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import signUpImg from '../../assets/others/authentication2.png'
 import { useForm } from "react-hook-form";
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
+
 
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit,reset, formState: { errors } } = useForm();
+    const { createUser, updateUserProfile } = useContext(AuthContext)
+    const navigate = useNavigate();
     const onSubmit = data => {
+        createUser(data.email, data.password)
 
-        console.log(data)
+            .then(res => {
+                const loggedUser = res.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoURL)
+                    .then(() => {
+                        console.log("update user profile successfully");
+                        reset();
+                        Swal.fire('update user profile successfully !')
+                        navigate('/')
+
+                    })
+                    .catch(error => console.log(error))
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+
+            })
+
     };
 
     return (
@@ -23,22 +48,32 @@ const SignUp = () => {
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
-                            <input type="text"  {...register("name" , { required: true })} name='name' placeholder="Name" className="input input-bordered"  />
+                            <input type="text"  {...register("name", { required: true })} name='name' placeholder="Name" className="input input-bordered" />
+                            {errors.name && <span className=' text-red-400'>This field is required</span>}
+                        </div>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Photo</span>
+                            </label>
+                            <input type="text"  {...register("photoURL", { required: true })} placeholder="photoURL" className="input input-bordered" />
                             {errors.name && <span className=' text-red-400'>This field is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" {...register("email", { required: true })} name='email' placeholder="email" className="input input-bordered"  />
+                            <input type="email" {...register("email", { required: true })} name='email' placeholder="email" className="input input-bordered" />
                             {errors.email && <span className=' text-red-400'>This field is required</span>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password"  {...register("password", { required: true,minLength:6 ,maxLength: 20 })} placeholder="password" className="input input-bordered" required />
+                            <input type="password"  {...register("password", { required: true, minLength: 6, maxLength: 20 })} placeholder="password" className="input input-bordered" required />
                             {errors.password && <span className=' text-red-400'>This field is required</span>}
+                            {
+                                errors.password?.type === "minLength" && <p className=' text-red-600'>Password at least 6 digit</p>
+                            }
                             <label className="label">
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
