@@ -2,7 +2,7 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { BiBookmarkAltMinus } from 'react-icons/Bi';
+import { BiBookmarkAltMinus } from 'react-icons/bi';
 import '@smastrom/react-rating/style.css'
 
 import { Navigation } from 'swiper/modules';

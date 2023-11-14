@@ -10,6 +10,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../Layouts/Dashboard";
 import MyCart from "../Pages/Dashboard/Mycart/MyCart";
+import AllUsers from "../Pages/Dashboard/AllUsers/AllUsers";
 
 export const router = createBrowserRouter([
     {
@@ -20,34 +21,38 @@ export const router = createBrowserRouter([
                 path: '/',
                 element: <Home></Home>
             },
-             {
+            {
                 path: "menu",
                 element: <PrivateRoute><Menu></Menu></PrivateRoute>
             },
             {
-                path:'order/:category',
-                element:<Order></Order>
+                path: 'order/:category',
+                element: <Order></Order>
             },
             {
-                path:'login',
-                element:<Login></Login>
+                path: 'login',
+                element: <Login></Login>
             },
             {
-                path:'signUp',
-                element:<SignUp></SignUp>
+                path: 'signUp',
+                element: <SignUp></SignUp>
             }
-            
+
         ]
     },
     {
-        path:'dashboard',
-        element:<Dashboard></Dashboard>,
-        children:[
-          {
-            path:'myCart',
-            element: <MyCart></MyCart>
-        }  
-            
+        path: 'dashboard',
+        element: <Dashboard></Dashboard>,
+        children: [
+            {
+                path: 'myCart',
+                element: <MyCart></MyCart>
+            },
+            {
+                path:'allUsers',
+                element:<AllUsers></AllUsers>
+            }
+
 
         ]
     }

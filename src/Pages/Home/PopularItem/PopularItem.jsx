@@ -6,7 +6,6 @@ import MenuItem from "../../Shared/MenuItem/MenuItem";
 
 const PopularItem = () => {
     const [menu] = useMenu();
-    console.log(menu);
     const popular = menu.filter(items => items.category === "popular")
     return (
         <section>

@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 
 
@@ -19,10 +20,24 @@ const SignUp = () => {
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.photoURL)
                     .then(() => {
-                        console.log("update user profile successfully");
-                        reset();
-                        Swal.fire('update user profile successfully !')
-                        navigate('/')
+                        
+                        const saveUSer = {name:data.name,email:data.email}
+                        fetch('http://localhost:5000/users',{
+                            method:"POST",
+                            headers:{
+                                "content-type":"application/json"
+                            },
+                            body:JSON.stringify(saveUSer)
+                        })
+                        .then(res=>res.json())
+                        .then(data=>{
+                            if(data.insertedId){
+                                reset();
+                                Swal.fire('SignUp successfully !')
+                            }
+                            navigate('/')
+                        })
+                        
 
                     })
                     .catch(error => console.log(error))
@@ -83,6 +98,7 @@ const SignUp = () => {
                         </div>
                     </form>
                     <p className=' flex justify-center mb-2 text-green-400'><Link to="/login">I have an account ? Log In</Link></p>
+                    <SocialLogin></SocialLogin>
                 </div>
             </div>
         </div>

@@ -1,18 +1,34 @@
 import { NavLink, Outlet } from "react-router-dom";
 
 const Dashboard = () => {
+    const isAdmin = true;
     const dashBoardOptions =
         <>
+            {
+                isAdmin ?
+                    <>
+                        <li><NavLink to='/'>Admin Home</NavLink></li>
+                        <li><NavLink  to='/dashboard/addItem'>Add Items</NavLink></li>
+                        <li><NavLink to='/dashboard/allUsers'>All Users</NavLink></li>
+                        <li><NavLink to='/dashboard/booking'>Manage Booking</NavLink></li>
+                        <div className="divider divider-horizontal"></div>
 
-            <li><NavLink to='/'>User Home</NavLink></li>
-            <li><NavLink   className={({ isActive }) => (isActive ? 'active' : 'default')} to='/dashboard/myCart'>Payment History</NavLink></li>
-            <li><NavLink to='/dashboard/myCart'>My Cart</NavLink></li>
-            <li><NavLink to='/dashboard/myCart'>Add Review</NavLink></li>
-            <div className="divider divider-horizontal"></div>
+                    </> :
+
+                    <>
+                        <li><NavLink to='/'>User Home</NavLink></li>
+                        <li><NavLink className={({ isActive }) => (isActive ? 'active' : 'default')} to='/dashboard/myCart'>Payment History</NavLink></li>
+                        <li><NavLink to='/dashboard/myCart'>My Cart</NavLink></li>
+                        <li><NavLink to='/dashboard/myCart'>Add Review</NavLink></li>
+                        <div className="divider divider-horizontal"></div>
+
+                    </>
+            }
+
             <li><NavLink to='/'>Home</NavLink></li>
-            <li><NavLink to='/dashboard/myCart'>Menu</NavLink></li>
-            <li><NavLink to='/dashboard/myCart'>Shop</NavLink></li>
-            <li><NavLink to='/dashboard/myCart'>Contract</NavLink></li>
+            <li><NavLink to='/dashboard/'>Menu</NavLink></li>
+            <li><NavLink to='/dashboard/'>Shop</NavLink></li>
+            <li><NavLink to='/dashboard/'>Contract</NavLink></li>
         </>
 
     return (
