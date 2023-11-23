@@ -31,19 +31,21 @@ const AuthProvider = ({ children }) => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             
             setUser(currentUser)
-            console.log('current user is',currentUser);
             if (currentUser) {
                 axios.post('http://localhost:5000/jwt', { email: currentUser.email })
                     .then(res => {
-                        console.log(res.data.token);
+                        console.log('the token is :',res.data.token);
                         localStorage.setItem('access-token',res.data.token)
+                        setLoading(false)
                     })
+                    
             }
             else{
                 localStorage.removeItem('access-token')
+               
             }
 
-            setLoading(false)
+            
         })
         return () => {
             return unSubscribe();

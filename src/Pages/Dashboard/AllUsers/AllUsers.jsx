@@ -1,28 +1,39 @@
 import { useQuery } from "@tanstack/react-query";
 import { FaRegTrashAlt, FaUser } from 'react-icons/fa';
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUsers = () => {
 
+const [axiosSecure] = useAxiosSecure();
     const { data: users = [], refetch } = useQuery({
         queryKey: ['carts'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users')
-            return res.json()
+            const res = await axiosSecure('http://localhost:5000/users')
+            console.log(res.data);
+            return res.data
         }
     })
+    // const { data: users = [], refetch } = useQuery({
+    //     queryKey: ['carts'],
+    //     enabled: !loading,
+    //     queryFn: async () => {
+    //         const res = await fetch('http://localhost:5000/users')
+    //         return res.json()
+    //     }
+    // })
     const makeAdmin = (id) => {
         fetch(`http://localhost:5000/users/admin/${id}`, {
             method: "PATCH"
         })
-.then(res=>res.json())
-.then(data=>{
-    if(data.modifiedCount){
-        refetch();
-        Swal.fire("Change ot admin");
+            .then(res => res.json())
+            .then(data => {
+                if (data.modifiedCount) {
+                    refetch();
+                    Swal.fire("Change ot admin");
 
-    }
-})
+                }
+            })
 
     }
     const handleDelete = (user) => {

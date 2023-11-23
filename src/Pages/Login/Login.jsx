@@ -8,16 +8,16 @@ import Swal from 'sweetalert2'
 import SocialLogin from '../../components/SocialLogin/SocialLogin';
 const Login = () => {
 
-    
+
     const [disable, setDisable] = useState(true)
     const { signIn } = useContext(AuthContext)
     const navigate = useNavigate();
     const location = useLocation();
-    const from = location.state?.from ?.pathname || '/'
+    const from = location.state?.from?.pathname || '/'
 
-    useEffect(() => {
-        loadCaptchaEnginge(6);
-    }, [])
+    // useEffect(() => {
+    //     loadCaptchaEnginge(6);
+    // }, [])
     const handleLogin = event => {
         event.preventDefault();
         const form = event.target;
@@ -29,7 +29,7 @@ const Login = () => {
                 const user = result.user
                 console.log(user);
                 Swal.fire('Login In Successfully')
-                navigate(from,{replace:true})
+                navigate(from, { replace: true })
             })
             .catch((error) => {
                 const errorMessage = error.message
@@ -39,17 +39,17 @@ const Login = () => {
 
     }
 
-    const handleCaptcha = (e) => {
-        const user_captcha_value = e.target.value;
-        if (validateCaptcha(user_captcha_value) == true) {
+    // const handleCaptcha = (e) => {
+    //     const user_captcha_value = e.target.value;
+    //     if (validateCaptcha(user_captcha_value) == true) {
 
-            setDisable(false)
-        }
+    //         setDisable(false)
+    //     }
 
-        else {
-            setDisable(true)
-        }
-    }
+    //     else {
+    //         setDisable(true)
+    //     }
+    // }
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row-reverse">
@@ -74,16 +74,16 @@ const Login = () => {
                                 <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
                             </label>
                         </div>
-                        <div className="form-control">
+                        {/* <div className="form-control">
                             <label className="label">
                                 <LoadCanvasTemplateNoReload />
                             </label>
                             <input type="text" onBlur={handleCaptcha} name='captcha' placeholder="Enter the above captcha" className="input input-bordered" required />
-                            {/* <button onClick={handleCaptcha} className='mt-2 btn-xs btn btn-tiny btn-secondary'>confirm captcha</button> */}
-                        </div>
+                            <button onClick={handleCaptcha} className='mt-2 btn-xs btn btn-tiny btn-secondary'>confirm captcha</button>
+                        </div> */}
                         <div className="form-control mt-6">
 
-                            <input disabled={disable} type="submit" className='btn btn-primary' value="Login" />
+                            <input disabled={false} type="submit" className='btn btn-primary' value="Login" />
                         </div>
                     </form>
                     <Link to='/signUp'>  <p className=' flex justify-center mb-2 text-pink-500'> Create account</p></Link>
