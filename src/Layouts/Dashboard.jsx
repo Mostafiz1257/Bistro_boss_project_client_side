@@ -12,7 +12,7 @@ const Dashboard = () => {
                         <li><NavLink to='/'>Admin Home</NavLink></li>
                         <li><NavLink  to='/dashboard/addItem'>Add Items</NavLink></li>
                         <li><NavLink to='/dashboard/allUsers'>All Users</NavLink></li>
-                        <li><NavLink to='/dashboard/booking'>Manage Booking</NavLink></li>
+                        <li><NavLink to='/dashboard/manageItem'>Manage Item</NavLink></li>
                         <div className="divider divider-horizontal"></div>
 
                     </> :
