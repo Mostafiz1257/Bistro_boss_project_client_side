@@ -1,4 +1,4 @@
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import useAuth from "./useAuth";
@@ -15,8 +15,7 @@ const useAxiosSecure = () => {
     useEffect(() => {
         axiosSecure.interceptors.request.use((config) => {
             const token = localStorage.getItem("access-token");
-            console.log("Token from axiosSecure ",token);
-            console.log("Normal consloe");
+            console.log("Token from axiosSecure ", token);
 
             if (token) {
                 config.headers.Authorization = `Bearer ${token}`
@@ -26,19 +25,19 @@ const useAxiosSecure = () => {
         axiosSecure.interceptors.response.use(
             (response) => response,
             async (error) => {
-                
-                if (error.response && (error.response.status ===401 || error.response.status ===403)) {
+
+                if (error.response && (error.response.status === 401 || error.response.status === 403)) {
                     console.log(error.response.status);
                     await logOut();
-                  
+
                     navigate('/login')
                 }
                 return Promise.reject(error)
             }
         )
 
-    }, 
-    [logOut, navigate, axiosSecure])
+    },
+        [logOut, navigate, axiosSecure])
     return [axiosSecure]
 };
 

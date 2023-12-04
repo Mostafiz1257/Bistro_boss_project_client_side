@@ -1,10 +1,13 @@
 import Swal from "sweetalert2";
 import useCart from "../../../hooks/useCart";
 import { FaTrashAlt } from 'react-icons/fa';
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
     const [cart,refetch] = useCart();
-    const total = cart.reduce((sum, item) => item.price + sum, 0)  
+    const totalPrice = cart.reduce((sum, item) => item.price + sum, 0)  
+    const total = totalPrice.toFixed(2)
+    
     const handleDelete =(item)=>{
         Swal.fire({
             title: 'Are you sure?',
@@ -37,7 +40,9 @@ const MyCart = () => {
         <>
             <div className=" flex justify-end	md:mr-[150px] mr-4 my-8 text-end">
                 <span className="text-secondary md:mr-8 mr-4 ">Total : $ {total} only</span>
-                <button className="btn btn-outline btn-secondary btn-sm">pay now</button>
+               <Link to='/dashboard/payment'>
+               <button className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Confirm Payment</button>
+               </Link>
             </div>
             <div className="overflow-x-auto">
                 <table className="table">
@@ -73,9 +78,9 @@ const MyCart = () => {
 
                                     <span className="badge badge-ghost badge-sm">{item.name}</span>
                                 </td>
-                                <td className="">${item.price}</td>
+                                <td className="text-green-500">${item.price}</td>
                                 <th>
-                                    <button onClick={()=>handleDelete(item)} className="btn btn-ghost btn-xs text-2xl"><FaTrashAlt></FaTrashAlt></button>
+                                    <button onClick={()=>handleDelete(item)} className="btn btn-ghost btn-xs text-2xl"><FaTrashAlt className=" text-red-500"></FaTrashAlt></button>
                                 </th>
                             </tr>)
                         }

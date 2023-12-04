@@ -52,7 +52,7 @@ const FoodCard = ({ item }) => {
                 <h2 className="card-title">{name}</h2>
                 <p>{recipe}</p>
                 <div className="card-actions justify-end flex flex-col items-center">
-                    <button onClick={() => handleAddToCart(item)} className="btn btn-outline border-1 border-b-4 text-white ">add to card</button>
+                    <button onClick={() => handleAddToCart(item)} className="btn btn-outline border-1 border-b-4 text-black ">add to card</button>
                 </div>
             </div>
         </div>
